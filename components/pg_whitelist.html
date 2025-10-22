@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Whitelist Service</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='styles/default.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='styles/style_whitelist.css') }}"
+    />
+  </head>
+  <body>
+    <!-- main app container -->
+    <div class="app">
+      <div class="header">
+        <p>Nighthawks</p>
+        <div class="navs">
+          <ul>
+            <li><a href="{{url_for('tab_1')}}">Aimbot Configs</a></li>
+            <li><a href="{{url_for('tab_2')}}">Sniper Configs</a></li>
+            <li><a href="{{url_for('tab_3')}}">Whitelist Service</a></li>
+            <li><a href="{{url_for('tab_4')}}">Authentication Service</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="content">
+        <div id="form">
+          <center><p id="form_lbl">UID Whitelist</p></center>
+          <div class="input-group">
+            <input id="head_offset" type="text" placeholder=" " required />
+            <label for="head_offset">Player UID</label>
+          </div>
+          <button id="btn_whitelist_uid">Whitelist Now</button>
+        </div>
+      </div>
+      <div class="footer">
+        <p id="status_lbl">status: n/a</p>
+        <div id="server_controller">
+          <button id="btn_server_on">On Server</button>
+          <button id="btn_server_off">Off Server</button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

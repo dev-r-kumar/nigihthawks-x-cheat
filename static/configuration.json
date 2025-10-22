@@ -1,0 +1,42 @@
+{
+  "server_config": {
+    "server_status": "1"
+  },
+  "apps": [
+    {
+      "app_name": "nighthawks_panel",
+      "app_version": "V8",
+      "configs": [
+        {
+          "scan_pattern": "FF FF 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? 00 00 00 00 00 00 00 00 00 00 00 00 A5 43",
+          "write_offset": "166",
+          "head_offset": "170",
+          "left_ear_offset": "218",
+          "right_ear_offset": "230",
+          "left_shoulder_offset": "234",
+          "right_shoulder_offset": "230",
+          "sniper_fov_scan": "FF FF FF FF 08 00 00 00 00 00 60 40 CD CC 8C 3F 8F C2 F5 3C CD CC CC 3D 06 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 80 3F 33 33 13 40 00 00 B0 3F 00 00 80 3F 01",
+          "sniper_fov_replace": "FF FF FF FF 08 00 00 00 00 00 60 40 CD CC 8C 3F 8F C2 F5 3C CD CC CC 3D 06 00 00 00 00 00 80 3F 00 00 00 00 00 00 00 00 00 00 00 00 00 00 80 3F 33 33 13 40 00 00 B0 3F 00 00 80 3F 01"
+        }
+      ]
+    },
+    {
+      "app_name": "nighthawks_uid_bypass",
+      "app_version": "V8",
+      "configs": [
+        {
+          "access_password": "uidbypass@developer.nighthawks!!"
+        }
+      ]
+    },
+    {
+      "app_name": "nighthawks_discord_bot",
+      "app_version": "0.1",
+      "configs": [
+        {
+          "token": "discord token here !"
+        }
+      ]
+    }
+  ]
+}

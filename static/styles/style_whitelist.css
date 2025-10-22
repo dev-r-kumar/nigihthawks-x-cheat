@@ -1,0 +1,145 @@
+/* Center content on the page */
+.content {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin-top: 100px;
+}
+
+/* Form container */
+.content #form {
+    display: flex;
+    flex-direction: column;
+    width: 400px;       /* fixed width */
+    height: auto;       /* allow form to grow */
+    padding: 20px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0 0 8px 1px;
+    box-sizing: border-box; /* include padding in width */
+    background-color: #131313;
+    border-radius: 8px;
+    animation: form_animation .2s ease-in-out;
+}
+
+/* Input groups for floating labels */
+.input-group {
+    position: relative;
+    margin: 12px 0;
+}
+
+
+#form_lbl {
+    color: #ffffff;
+    font-weight: 600;
+}
+
+/* Inputs */
+.input-group input {
+    width: 100%;
+    margin-top: 10px;
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: 0;
+    box-shadow: rgba(0, 0, 0, 0.1) 0 0 8px 1px;
+    outline: none;
+    box-sizing: border-box;
+    background: #000000;
+    color: #ffffff;
+}
+
+/* Labels (floating) */
+.input-group label {
+    position: absolute;
+    left: 12px;
+    margin-top: 10px;
+    top: 12px;
+    color: #ffffff;
+    font-size: 16px;
+    pointer-events: none;
+    transition: 0.2s ease all;
+    background: rgb(0, 0, 0);
+    padding: 0 4px;
+}
+
+/* Float label when input has text or focus */
+.input-group input:focus + label,
+.input-group input:not(:placeholder-shown) + label,
+.input-group input:valid + label {
+    top: -8px;
+    left: 8px;
+    font-size: 12px;
+    color: #3f51b5; /* highlight color */
+}
+
+/* Buttons container */
+.aimbot_control_btns {
+    margin-top: 10px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Buttons */
+button {
+    padding: 8px 12px;
+    border-radius: 5px;
+    border: 0;
+    font-size: 14px;
+    color: #fffdfd;
+    font-weight: 600;
+    background-color: #1fb62c;
+    margin-top: 20px;
+}
+
+button:hover {
+    cursor: pointer;
+    box-shadow: rgba(0, 0, 0, 0.1) 0 0 8px 1px;
+}
+
+/* Status label */
+#status_lbl {
+    margin-top: 20px;
+    font-size: 14px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: #ffffff;
+}
+
+.footer {
+    display: flex;
+    height: 40px;
+    width: 100%;
+    margin-top: auto;
+    justify-content: space-between;
+}
+
+
+.footer div {
+    line-height: 40px;
+    display: flex;
+}
+
+.footer div button {
+    padding: 8px;
+    margin: 3px;
+    border: none;
+    background-color: #89a317;
+    color: #ffffff;
+    border-radius: 3px;
+}
+
+
+.footer div button:hover {
+    cursor: pointer;
+}
+
+
+
+@keyframes form_animation {
+    0% {
+        transform: translate(100%);
+    }
+
+    100% {
+        transform: translate(0);
+    }
+}

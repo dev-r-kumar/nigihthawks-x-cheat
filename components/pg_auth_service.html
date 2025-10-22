@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>License Generator</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='styles/default.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='styles/style_auth.css') }}"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="app">
+      <div class="header">
+        <p>Nighthawks License</p>
+        <div class="navs">
+          <ul>
+            <li><a href="{{url_for('tab_1')}}">Aimbot Configs</a></li>
+            <li><a href="{{url_for('tab_2')}}">Sniper Configs</a></li>
+            <li><a href="{{url_for('tab_3')}}">Whitelist Service</a></li>
+            <li><a href="{{url_for('tab_4')}}">Authentication Service</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="content">
+        <div id="form">
+          <center><p id="form_lbl">GENERATE LICENSE KEYS</p></center>
+
+          <div class="input-group">
+            <select id="license_type" required>
+              <option value="" disabled selected>Select License Type</option>
+              <option value="week">Week</option>
+              <option value="month">Month</option>
+            </select>
+            <label for="license_type">License Type</label>
+          </div>
+
+          <div class="input-group">
+            <input id="quantity" type="number" placeholder=" " required />
+            <label for="quantity">Quantity</label>
+          </div>
+
+          <center>
+            <div class="aimbot_control_btns">
+              <button id="btn_generate_license">Generate</button>
+            </div>
+          </center>
+
+          <div class="input-group">
+            <textarea
+              id="generated_keys"
+              placeholder="Generated keys will appear here"
+              readonly
+            ></textarea>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer">
+        <p id="status_lbl">status: n/a</p>
+      </div>
+    </div>
+  </body>
+  <script src="{{url_for('static', filename='/js/panel_config.js')}}"></script>
+</html>

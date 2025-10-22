@@ -1,0 +1,162 @@
+
+/* Center content on the page */
+.content {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin-top: 100px;
+}
+
+/* Form container */
+.content #form {
+    display: flex;
+    flex-direction: column;
+    width: 400px;       
+    height: auto;       
+    padding: 20px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0 0 8px 1px;
+    box-sizing: border-box; 
+    background-color: #131313;
+    border-radius: 8px;
+    animation: form_animation .2s ease-in-out;
+}
+
+/* Input groups for floating labels */
+.input-group {
+    position: relative;
+    margin: 12px 0;
+}
+
+/* Inputs */
+.input-group input,
+.input-group select,
+.input-group textarea {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: 0;
+    box-shadow: rgba(0, 0, 0, 0.1) 0 0 8px 1px;
+    outline: none;
+    box-sizing: border-box;
+    background: #000000;
+    color: #ffffff;
+}
+
+/* Labels (floating) */
+.input-group label {
+    position: absolute;
+    left: 12px;
+    top: 12px;
+    color: #ffffff;
+    font-size: 16px;
+    pointer-events: none;
+    transition: 0.2s ease all;
+    background: rgb(0, 0, 0);
+    padding: 0 4px;
+}
+
+/* Float label when input/select/textarea has text or focus */
+.input-group input:focus + label,
+.input-group input:not(:placeholder-shown) + label,
+.input-group input:valid + label,
+.input-group textarea:focus + label,
+.input-group textarea:not(:placeholder-shown) + label,
+.input-group textarea:valid + label,
+.input-group select:focus + label,
+.input-group select:valid + label {
+    top: -8px;
+    left: 8px;
+    font-size: 12px;
+    color: #3f51b5; /* highlight color */
+}
+
+/* Textarea */
+.input-group textarea {
+    height: 150px;
+    resize: vertical;
+}
+
+/* Buttons container */
+.aimbot_control_btns {
+    margin-top: 10px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Buttons */
+.aimbot_control_btns button {
+    padding: 8px 12px;
+    border-radius: 5px;
+    border: 0;
+    font-size: 14px;
+    color: #6b6464;
+    font-weight: 600;
+    background-color: #f0f0f0;
+    margin-left: 50%;
+    transform: translate(-50%);
+}
+
+.aimbot_control_btns button:hover {
+    cursor: pointer;
+    box-shadow: rgba(0, 0, 0, 0.1) 0 0 8px 1px;
+}
+
+/* Status label */
+#status_lbl {
+    margin-top: 20px;
+    font-size: 14px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: #ffffff;
+}
+
+/* Form title */
+#form_lbl {
+    color: #ffffff;
+    font-weight: 600;
+}
+
+/* Footer */
+.footer {
+    display: flex;
+    height: 40px;
+    width: 100%;
+    margin-top: auto;
+    justify-content: space-between;
+}
+
+/* Footer buttons (optional) */
+.footer div button {
+    padding: 8px;
+    margin: 3px;
+    border: none;
+    background-color: #89a317;
+    color: #ffffff;
+    border-radius: 3px;
+}
+
+.footer div button:hover {
+    cursor: pointer;
+}
+
+/* Form animation */
+@keyframes form_animation {
+    0% {
+        transform: translate(100%);
+    }
+    100% {
+        transform: translate(0);
+    }
+}
+
+/* Select dropdown enhancement */
+.input-group select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background: #000000 url("data:image/svg+xml,%3Csvg viewBox='0 0 140 140' xmlns='http://www.w3.org/2000/svg'%3E%3Cpolygon points='0,0 140,0 70,70' fill='white'/%3E%3C/svg%3E") no-repeat right 12px center;
+    background-size: 12px;
+    cursor: pointer;
+    color: #ffffff;
+}

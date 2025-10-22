@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sniper Configs</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='styles/default.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='styles/style_sniper.css') }}"
+    />
+  </head>
+  <body>
+    <!-- main app container -->
+    <div class="app">
+      <div class="header">
+        <p>Nighthawks</p>
+        <div class="navs">
+          <ul>
+            <li><a href="{{url_for('tab_1')}}">Aimbot Configs</a></li>
+            <li><a href="{{url_for('tab_2')}}">Sniper Configs</a></li>
+            <li><a href="{{url_for('tab_3')}}">Whitelist Service</a></li>
+            <li><a href="{{url_for('tab_4')}}">Authentication Service</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="content">
+        <div id="form">
+          <center><p id="form_lbl">SNIPER CONFIG</p></center>
+           <div class="input-group">
+            <textarea
+              id="sniper_scan"
+              placeholder=" "
+              required
+              spellcheck="false"
+            ></textarea>
+            <label for="sniper_scan">Scan Pattern</label>
+
+            <div class="input-group">
+            <textarea
+              id="sniper_replace"
+              placeholder=" "
+              required
+              spellcheck="false"
+            ></textarea>
+            <label for="sniper_replace">Replace Pattern</label>
+
+            <center>
+            <div class="aimbot_control_btns">
+              <button id="patch-sniper">Patch Sniper</button>
+            </div>
+          </center>
+        </div>
+      </div>
+      <div class="footer">
+        
+      </div>
+    </div>
+  </body>
+  <script src="{{url_for('static', filename='js/panel_config.js')}}"></script>
+</html>
