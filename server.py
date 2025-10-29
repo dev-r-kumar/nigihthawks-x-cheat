@@ -2,6 +2,11 @@ from flask import Flask, request, render_template, redirect, jsonify
 from flask_cors import CORS
 import json, os, random, string, time
 from ConfigHelper import NighthawhsServerConfig, NighthawksPanelConfig, NhkSniperConfig, NighthawksUIDBypass, NighthawksDisocrdBot
+from plugin_discord import DCPlugin
+
+# init
+dcAlert = DCPlugin(url="https://discord.com/api/webhooks/1433077538711670908/_o8DQIGL8-wKFLn-f5VEUQ834Oz0OjNiddgxdt4J9829vX41Fm2EfzhEItGpU4L2dFzv")
+
 
 # file paths
 license_db_path = os.path.join(os.path.dirname(__file__), "license_db.json")
@@ -115,7 +120,6 @@ def RegisterUser(license_key: str, username: str, password: str):
         return {"message": str(e), "status": 500}
 
 
-
 def LoginUser(username: str, password: str):
     with open(license_db_path, 'r') as f:
         data = json.load(f)
@@ -125,13 +129,19 @@ def LoginUser(username: str, password: str):
             if metadata['username'] == username:
                 if metadata['password'] == password:
                     if int(time.time()) >= metadata['expiry_date']:
+                        dcAlert.sendMessageToDiscord("Alert", f"License subscription is over, Please contact developer.\nUsername: **{metadata['username']}**")
+
                         return {"message": "License is expired !", "status": 400}
+                    
+                    dcAlert.sendMessageToDiscord("Alert", f"Login Success\nUsername: **{metadata['username']}**\nThank you for using our panel.")
                     
                     return {"message": "Login Success", "metadata_response": metadata, "status": 200}
                 
                 else:
+                    dcAlert.sendMessageToDiscord("Alert", f":Login failed ❌, Invalid Password\nUsername: **{metadata['username']}**")
                     return {"message": "Invalid Password !", "status": 400}
-                
+
+    dcAlert.sendMessageToDiscord("Alert", f":Login failed ❌, username *{metadata['username']}* not found !") 
     return {"message": "No user found !", "status": 400}
 
 
@@ -180,7 +190,6 @@ def get_panel_config():
     
     except Exception as e:
         return jsonify({'message': str(e)}), 500
-
 
 
 
