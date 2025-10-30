@@ -1,14 +1,10 @@
 from flask import Flask, request, render_template, redirect, jsonify
 from flask_cors import CORS
 import json, os, random, string, time
-from ConfigHelper import NighthawhsServerConfig, NighthawksPanelConfig, NhkSniperConfig, NighthawksUIDBypass, NighthawksDisocrdBot
-from plugin_discord import DCPlugin
+from ConfigHelper import NighthawhsServerConfig, NighthawksPanelConfig, NhkSniperConfig
 import asyncio
 from datetime import datetime
-
-# init
-dcAlert = DCPlugin(url="https://discord.com/api/webhooks/1433077538711670908/_o8DQIGL8-wKFLn-f5VEUQ834Oz0OjNiddgxdt4J9829vX41Fm2EfzhEItGpU4L2dFzv")
-
+import aiohttp
 
 # file paths
 license_db_path = os.path.join(os.path.dirname(__file__), "license_db.json")
@@ -18,6 +14,19 @@ app = Flask(__name__, template_folder="components")
 CORS(app)
 
 # helper functions
+async def sendMessageToLog(title, message):
+    url = f"https://nhk-discord-notifier.onrender.com/send-panel-log"
+
+    params = {
+        "title": title,
+        "message": message
+    }
+
+    async with aiohttp.ClientSession() as session:
+        async with session.get(url=url, params=params) as response:
+            return "message sent !" if response.status in (200, 204) else "error !"
+        
+
 def generate_key(license_type: str, quantity: int):
     keys = []
     for _ in range(quantity):
@@ -132,21 +141,21 @@ def LoginUser(username: str, password: str):
             if metadata['username'] == username:
                 if metadata['password'] == password:
                     if int(time.time()) >= metadata['expiry_date']:
-                        asyncio.run(dcAlert.sendMessageToDiscord("Panel Login Alert", f"License subscription is over, Please contact developer.\nUsername: **{metadata['username']}**\nAttempt: **{attempt_datetime}**"))
+                        asyncio.run(sendMessageToLog("Panel Login Alert", f"License subscription is over, Please contact developer.\nUsername: **{metadata['username']}**\nAttempt: **{attempt_datetime}**"))
 
                         return {"message": "License is expired !", "status": 400}
                     
 
                     daysleftMesaage = GetDaysLeftFromExpiryDate(metadata['expiry_date'])
-                    asyncio.run(dcAlert.sendMessageToDiscord("Panel Login Alert", f"Login Success✅\nUsername: **{metadata['username']}**\nExpiry: *{daysleftMesaage['message']}*\nAttempt: **{attempt_datetime}**\nThank you for using our panel."))
+                    asyncio.run(sendMessageToLog("Panel Login Alert", f"Login Success✅\nUsername: **{metadata['username']}**\nExpiry: *{daysleftMesaage['message']}*\nAttempt: **{attempt_datetime}**\nThank you for using our panel."))
                     
                     return {"message": "Login Success", "metadata_response": metadata, "status": 200}
                 
                 else:
-                    asyncio.run(dcAlert.sendMessageToDiscord("Panel Login Alert", f"Login Blocked ❌, Invalid Password\nUsername: **{metadata['username']}**\nAttempt: **{attempt_datetime}**"))
+                    asyncio.run(sendMessageToLog("Panel Login Alert", f"Login Blocked ❌, Invalid Password\nUsername: **{metadata['username']}**\nAttempt: **{attempt_datetime}**"))
                     return {"message": "Invalid Password !", "status": 400}
 
-    asyncio.run(dcAlert.sendMessageToDiscord("Panel Login Alert", f"Login failed ❌, username *{metadata['username']}* not found !\nAttempt: **{attempt_datetime}**"))
+    asyncio.run(sendMessageToLog("Panel Login Alert", f"Login failed ❌, username *{metadata['username']}* not found !\nAttempt: **{attempt_datetime}**"))
     return {"message": "No user found !", "status": 400}
 
 
@@ -336,11 +345,6 @@ def generate_license_key():
     response = GenerateLicenseKey(license_type, quantity)
     return jsonify(response), response['status']
 
-
-
-
-
-
 @app.route("/api/inspect/unix")
 def get_days_left():
     expiry_date = request.args.get("expiry-date")
@@ -351,7 +355,6 @@ def get_days_left():
     response = GetDaysLeftFromExpiryDate(int(expiry_date))
 
     return jsonify(response), response['status']
-
 
 
 
@@ -396,8 +399,6 @@ def getUnixTime():
     return jsonify({"message": current_unix_time, "status": 200})
 
     
-
-
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)
 
