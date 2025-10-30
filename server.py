@@ -3,6 +3,8 @@ from flask_cors import CORS
 import json, os, random, string, time
 from ConfigHelper import NighthawhsServerConfig, NighthawksPanelConfig, NhkSniperConfig, NighthawksUIDBypass, NighthawksDisocrdBot
 from plugin_discord import DCPlugin
+import asyncio
+from datetime import datetime
 
 # init
 dcAlert = DCPlugin(url="https://discord.com/api/webhooks/1433077538711670908/_o8DQIGL8-wKFLn-f5VEUQ834Oz0OjNiddgxdt4J9829vX41Fm2EfzhEItGpU4L2dFzv")
@@ -121,6 +123,7 @@ def RegisterUser(license_key: str, username: str, password: str):
 
 
 def LoginUser(username: str, password: str):
+    attempt_datetime = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     with open(license_db_path, 'r') as f:
         data = json.load(f)
 
@@ -129,19 +132,21 @@ def LoginUser(username: str, password: str):
             if metadata['username'] == username:
                 if metadata['password'] == password:
                     if int(time.time()) >= metadata['expiry_date']:
-                        dcAlert.sendMessageToDiscord("Alert", f"License subscription is over, Please contact developer.\nUsername: **{metadata['username']}**")
+                        asyncio.run(dcAlert.sendMessageToDiscord("Panel Login Alert", f"License subscription is over, Please contact developer.\nUsername: **{metadata['username']}**\nAttempt: **{attempt_datetime}**"))
 
                         return {"message": "License is expired !", "status": 400}
                     
-                    dcAlert.sendMessageToDiscord("Alert", f"Login Success\nUsername: **{metadata['username']}**\nThank you for using our panel.")
+
+                    daysleftMesaage = GetDaysLeftFromExpiryDate(metadata['expiry_date'])
+                    asyncio.run(dcAlert.sendMessageToDiscord("Panel Login Alert", f"Login Success✅\nUsername: **{metadata['username']}**\nExpiry: *{daysleftMesaage['message']}*\nAttempt: **{attempt_datetime}**\nThank you for using our panel."))
                     
                     return {"message": "Login Success", "metadata_response": metadata, "status": 200}
                 
                 else:
-                    dcAlert.sendMessageToDiscord("Alert", f":Login failed ❌, Invalid Password\nUsername: **{metadata['username']}**")
+                    asyncio.run(dcAlert.sendMessageToDiscord("Panel Login Alert", f"Login Blocked ❌, Invalid Password\nUsername: **{metadata['username']}**\nAttempt: **{attempt_datetime}**"))
                     return {"message": "Invalid Password !", "status": 400}
 
-    dcAlert.sendMessageToDiscord("Alert", f":Login failed ❌, username *{metadata['username']}* not found !") 
+    asyncio.run(dcAlert.sendMessageToDiscord("Panel Login Alert", f"Login failed ❌, username *{metadata['username']}* not found !\nAttempt: **{attempt_datetime}**"))
     return {"message": "No user found !", "status": 400}
 
 
